@@ -5,7 +5,7 @@
 ## Why Use SQL Builder?
 
 - **Simpler Fluent & Smart API:** Focused on readability, typesafe and minimal configuration.
-- **Framework Independent:** It can be used in any Java framework ( Quarkus, Spring Boot etc )
+- **Framework Independent:** It can be used in any Java framework ( [Quarkus](https://github.com/quarkusio/quarkus/discussions/38740), Spring Boot etc )
 - **Lightweight:** with no third party dependencies
 
 ## Usage
@@ -25,7 +25,7 @@ Add dependency to your project
 implementation 'com.techatpark:sql-builder:1.0-SNAPSHOT'
 ```
 
-Thats all, You can now build and execute [Queries](#queries) , [Batch](#batch) and [Stored Procedures](#stored-procedures)
+Thats all, You can now build and execute [Queries](#queries) , [Batch](#batch) , [Stored Procedures](#stored-procedures) and [Transactions](#transactions)
 
 ### Queries
 
@@ -162,3 +162,53 @@ SqlBuilder
 ```
 
 > **Note:** Batch for Stored procedures will only work with `IN` parameters—`OUT`/`INOUT` parameters are not batch-friendly.
+
+### Transactions
+
+```java
+Transaction
+    // Step 1: Insert director and return generated ID
+    .begin(SqlBuilder.prepareSql("INSERT INTO director(name) VALUES (?)")
+            .param("Christopher Nolan")
+            .queryGeneratedKeys(rs -> rs.getLong(1)))
+    // Step 2: Use directorId to fetch directorName
+    .thenApply(directorId -> SqlBuilder
+            .prepareSql("SELECT name FROM director WHERE id = ?")
+            .param(directorId)
+            .queryForString())
+    // Step 3: Use directorName to insert movies
+    .thenApply(directorName -> SqlBuilder
+            .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+            .param("Tenet").param(directorName)
+            .param("Oppenheimer").param(directorName))
+    // Execute as one transaction
+    .execute(dataSource);
+```
+
+with Save Points, 
+
+```java
+Transaction
+    // Step 1: Insert director and return generated ID
+    .begin(SqlBuilder.prepareSql("INSERT INTO director(name) VALUES (?)")
+            .param("Christopher Nolan")
+            .queryGeneratedKeys(rs -> rs.getLong(1)))
+
+    // Step 2: Use directorId to fetch directorName
+    .thenApply(directorId -> SqlBuilder
+            .prepareSql("SELECT name FROM director WHERE id = ?")
+            .param(directorId)
+            .queryForString())
+
+    .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
+            .begin(SqlBuilder
+               .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+                    .param("Tenet")
+                    .param(directorName)
+                    .paramNull() // NOTNULL Error
+                    .param(directorName))
+            )
+        
+    // Execute as one transaction
+    .execute(dataSource);
+```
