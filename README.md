@@ -200,13 +200,15 @@ Transaction
             .param(directorId)
             .queryForString())
 
-    .savePoint("savepoint_nolan_additional_works", directorName -> SqlBuilder
-            .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
-            .param("Tenet")
-            .param(directorName)
-            .paramNull() // NOTNULL Error
-            .param(directorName))
-
+    .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
+            .begin(SqlBuilder
+               .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+                    .param("Tenet")
+                    .param(directorName)
+                    .paramNull() // NOTNULL Error
+                    .param(directorName))
+            )
+        
     // Execute as one transaction
     .execute(dataSource);
 ```

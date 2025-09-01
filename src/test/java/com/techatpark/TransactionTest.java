@@ -120,12 +120,15 @@ class TransactionTest extends BaseTest {
                         .param(directorId)
                         .queryForString())
 
-                .savePoint("savepoint_nolan_additional_works", directorName -> SqlBuilder
-                        .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
-                        .param("Tenet")
-                        .param(directorName)
-                        .param("Inception")
-                        .param(directorName))
+                .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
+                        // Step 1: Insert director and return generated ID
+                            .begin(SqlBuilder
+                                .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+                                .param("Tenet")
+                                .param(directorName)
+                                .param("Inception")
+                                .param(directorName))
+                            )
 
                 // Execute as one transaction
                 .execute(dataSource);
@@ -159,12 +162,15 @@ class TransactionTest extends BaseTest {
                         .param(directorId)
                         .queryForString())
 
-                .savePoint("savepoint_nolan_additional_works", directorName -> SqlBuilder
-                        .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
-                        .param("Tenet")
-                        .param(directorName)
-                        .paramNull() // NOTNULL Error
-                        .param(directorName))
+                .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
+                        // Step 1: Insert director and return generated ID
+                        .begin(SqlBuilder
+                            .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+                            .param("Tenet")
+                            .param(directorName)
+                            .paramNull() // NOTNULL Error
+                            .param(directorName))
+                        )
 
                 // Execute as one transaction
                 .execute(dataSource);

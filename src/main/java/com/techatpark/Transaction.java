@@ -120,18 +120,19 @@ public class Transaction<T> implements Sql<T> {
      * </pre>
      *
      * @param savePointId a unique identifier for the savepoint
-     * @param tSqlFunction function mapping the result of this SQL to next SQL
+     * @param transactionFn function mapping the result of
+     *                      this Transaction to next Transaction
      * @param <R>          the result type of the next SQL operation
      * @return the current {@link Transaction} instance for fluent chaining
      */
     public  <R> Transaction<R> savePoint(final String savePointId,
-                                    final Function<T, Sql<R>> tSqlFunction) {
+                        final Function<T, Transaction<R>> transactionFn) {
         return new Transaction<>(connection -> {
             T t = sql.execute(connection);
             Savepoint savepoint = connection.setSavepoint(savePointId);
             R r = null;
             try {
-                r = tSqlFunction.apply(t).execute(connection);
+                r = transactionFn.apply(t).sql.execute(connection);
             } catch (SQLException sqlException) {
                 connection.rollback(savepoint);
             }
