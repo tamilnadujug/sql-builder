@@ -1,4 +1,4 @@
-package com.techatpark.sql;
+package org.tamilnadujug.sql;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;

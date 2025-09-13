@@ -1,4 +1,4 @@
-package com.techatpark;
+package org.tamilnadujug;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

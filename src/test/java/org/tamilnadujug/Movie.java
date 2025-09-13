@@ -1,4 +1,4 @@
-package com.techatpark;
+package org.tamilnadujug;
 
 /**
  * Data Holder for the table - movie.

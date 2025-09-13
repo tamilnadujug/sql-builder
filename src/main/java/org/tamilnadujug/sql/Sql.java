@@ -1,4 +1,4 @@
-package com.techatpark.sql;
+package org.tamilnadujug.sql;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
