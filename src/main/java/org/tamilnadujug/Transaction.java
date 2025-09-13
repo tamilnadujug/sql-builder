@@ -1,6 +1,6 @@
-package com.techatpark;
+package org.tamilnadujug;
 
-import com.techatpark.sql.Sql;
+import org.tamilnadujug.sql.Sql;
 
 import java.sql.Connection;
 import java.sql.SQLException;

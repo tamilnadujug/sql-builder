@@ -1,9 +1,9 @@
-package com.techatpark;
+package org.tamilnadujug;
 
-import com.techatpark.sql.ParamMapper;
-import com.techatpark.sql.RowMapper;
-import com.techatpark.sql.Sql;
-import com.techatpark.sql.StatementMapper;
+import org.tamilnadujug.sql.ParamMapper;
+import org.tamilnadujug.sql.RowMapper;
+import org.tamilnadujug.sql.Sql;
+import org.tamilnadujug.sql.StatementMapper;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;

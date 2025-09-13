@@ -15,14 +15,14 @@ Add dependency to your project
 ### Maven
 ```xml
 <dependency>
-    <groupId>com.techatpark</groupId>
+    <groupId>org.tamilnadujug</groupId>
     <artifactId>sql-builder</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
 ### Gradle
 ```groovy
-implementation 'com.techatpark:sql-builder:1.0-SNAPSHOT'
+implementation 'org.tamilnadujug:sql-builder:1.0-SNAPSHOT'
 ```
 
 Thats all, You can now build and execute [Queries](#queries) , [Batch](#batch) , [Stored Procedures](#stored-procedures) and [Transactions](#transactions)

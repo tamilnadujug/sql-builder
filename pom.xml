@@ -4,12 +4,12 @@
 
   <name>Sql Builder</name>
   <description>SQL Builder for Java</description>
-  <groupId>com.techatpark</groupId>
+  <groupId>org.tamilnadujug</groupId>
   <artifactId>sql-builder</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <url>https://techatpark.com</url>
+  <url>https://tamilnadujug.com</url>
 
   <properties>
     <java.version>17</java.version>
@@ -32,7 +32,7 @@
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
-      <url>https://maven.pkg.github.com/techatpark/sql-builder</url>
+      <url>https://maven.pkg.github.com/tamilnadujug/sql-builder</url>
     </repository>
   </distributionManagement>
 
@@ -118,7 +118,7 @@
         <version>${jacoco.version}</version>
         <configuration>
           <includes>
-            <include>com/techatpark/*</include>
+            <include>com/tamilnadujug/*</include>
           </includes>
         </configuration>
         <executions>

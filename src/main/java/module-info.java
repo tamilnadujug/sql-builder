@@ -3,6 +3,6 @@ module sql.builder {
     requires java.sql;
     requires java.naming;
 
-    exports com.techatpark;
-    exports com.techatpark.sql;
+    exports org.tamilnadujug;
+    exports org.tamilnadujug.sql;
 }

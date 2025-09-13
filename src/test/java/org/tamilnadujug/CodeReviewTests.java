@@ -1,9 +1,9 @@
-package com.techatpark;
+package org.tamilnadujug;
 
-import com.techatpark.sql.ParamMapper;
-import com.techatpark.sql.RowMapper;
-import com.techatpark.sql.Sql;
-import com.techatpark.sql.StatementMapper;
+import org.tamilnadujug.sql.ParamMapper;
+import org.tamilnadujug.sql.RowMapper;
+import org.tamilnadujug.sql.Sql;
+import org.tamilnadujug.sql.StatementMapper;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.ArchRule;
@@ -37,10 +37,10 @@ class CodeReviewTests {
         JavaClasses importedClasses = new ClassFileImporter()
                 .withImportOption(
                         new com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests())
-                .importPackages("com.techatpark");
+                .importPackages("org.tamilnadujug");
 
         ArchRule rule = classes().that()
-                .resideInAnyPackage("com.techatpark")
+                .resideInAnyPackage("org.tamilnadujug")
                 .should()
                     .onlyAccessClassesThat()
                         .belongToAnyOf(SQLFeatureNotSupportedException.class,
