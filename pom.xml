@@ -9,7 +9,7 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <url>https://tamilnadujug.com</url>
+  <url>https://tamilnadujug.org</url>
 
   <properties>
     <java.version>17</java.version>
