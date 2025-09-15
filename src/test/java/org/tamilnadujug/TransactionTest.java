@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.*;
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -124,17 +124,16 @@ class TransactionTest extends BaseTest {
 
                 .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
                         // Step 1: Insert director and return generated ID
-                            .begin(SqlBuilder
+                        .begin(SqlBuilder
                                 .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
                                 .param("Tenet")
                                 .param(directorName)
                                 .param("Inception")
                                 .param(directorName))
-                            )
+                )
 
                 // Execute as one transaction
                 .execute(dataSource);
-
 
 
         // ✅ Assertions
@@ -152,7 +151,7 @@ class TransactionTest extends BaseTest {
     @Test
     void testSavepointRollback() throws SQLException {
 
-            Transaction
+        Transaction
                 // Step 1: Insert director and return generated ID
                 .begin(SqlBuilder.prepareSql("INSERT INTO director(name) VALUES (?)")
                         .param("Christopher Nolan")
@@ -167,16 +166,15 @@ class TransactionTest extends BaseTest {
                 .savePoint("savepoint_nolan_additional_works", directorName -> Transaction
                         // Step 1: Insert director and return generated ID
                         .begin(SqlBuilder
-                            .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
-                            .param("Tenet")
-                            .param(directorName)
-                            .paramNull() // NOTNULL Error
-                            .param(directorName))
-                        )
+                                .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?), (?, ?)")
+                                .param("Tenet")
+                                .param(directorName)
+                                .paramNull() // NOTNULL Error
+                                .param(directorName))
+                )
 
                 // Execute as one transaction
                 .execute(dataSource);
-
 
 
         // ✅ Assertions
@@ -190,7 +188,6 @@ class TransactionTest extends BaseTest {
                         .queryForInt()
                         .execute(dataSource));
     }
-
 
 
 }
