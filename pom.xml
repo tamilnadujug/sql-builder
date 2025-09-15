@@ -6,10 +6,39 @@
   <description>SQL Builder for Java</description>
   <groupId>org.tamilnadujug</groupId>
   <artifactId>sql-builder</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>jar</packaging>
 
   <url>https://tamilnadujug.org</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Rajadurai Krishnamoorthy</name>
+      <organization>OurKadai</organization>
+      <email>rajadurai@ourkadai.com</email>
+      <organizationUrl>http://www.ourkadai.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>Sathish Kumar Thiyagarajan</name>
+      <organization>Ourkadai</organization>
+      <organizationUrl>http://www.ourkadai.com</organizationUrl>
+    </developer>
+    <developer>
+      <name>Ganesh Babu</name>
+      <organization>Ourkadai</organization>
+      <organizationUrl>http://www.Ourkadai.com</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <url>https://github.com/tamilnadujug/sql-builder</url>
+  </scm>
 
   <properties>
     <java.version>17</java.version>
@@ -26,15 +55,19 @@
     <checkstyle.version>10.26.1</checkstyle.version>
 
     <postgresql.version>42.7.7</postgresql.version>
+    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <maven-javadoc.version>3.3.1</maven-javadoc.version>
+    <maven-gpg.version>3.0.1</maven-gpg.version>
+    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
   </properties>
 
-  <distributionManagement>
+  <!--distributionManagement>
     <repository>
       <id>github</id>
       <name>GitHub Packages</name>
       <url>https://maven.pkg.github.com/tamilnadujug/sql-builder</url>
     </repository>
-  </distributionManagement>
+  </distributionManagement-->
 
   <dependencyManagement>
     <dependencies>
@@ -174,7 +207,56 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.8.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${maven-source-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!--plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc.version}</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin-->
+      <!-- Sign artifacts for uploading to maven central -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>${maven-gpg.version}</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
