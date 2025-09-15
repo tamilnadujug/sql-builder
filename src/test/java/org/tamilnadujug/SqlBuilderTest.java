@@ -25,7 +25,7 @@ class SqlBuilderTest extends BaseTest {
         Assertions.assertEquals(1, updateRows);
 
         long generetedId = SqlBuilder.sql("INSERT INTO movie(title, directed_by) VALUES ('Interstellar', 'Nolan')")
-                .queryGeneratedKeys(resultSet -> resultSet.getLong(1))
+                .queryGeneratedKeyForLong()
                 .execute(dataSource);
 
         Assertions.assertEquals(2, generetedId);

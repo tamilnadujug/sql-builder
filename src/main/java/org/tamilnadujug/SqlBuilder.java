@@ -527,6 +527,307 @@ public sealed class SqlBuilder implements Sql<Integer> {
     }
 
     /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Byte.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Byte> queryGeneratedKeyForByte() {
+        return queryGeneratedKeys(RowMapper.BYTE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Byte.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Byte>> queryGeneratedKeysAsListOfByte() {
+        return queryGeneratedKeysAsList(RowMapper.BYTE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Byte Array.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<byte[]> queryGeneratedKeyForBytes() {
+        return queryGeneratedKeys(RowMapper.BYTES_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Byte Array.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<byte[]>> queryGeneratedKeysAsListOfBytes() {
+        return queryGeneratedKeysAsList(RowMapper.BYTES_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to an Integer.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Integer> queryGeneratedKeyForInt() {
+        return queryGeneratedKeys(RowMapper.INTEGER_MAPPER);
+    }
+
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to List of Integer.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Integer>> queryGeneratedKeysAsListOfInt() {
+        return queryGeneratedKeysAsList(RowMapper.INTEGER_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Short.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Short> queryGeneratedKeyForShort() {
+        return queryGeneratedKeys(RowMapper.SHORT_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Short.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Short>> queryGeneratedKeysAsListOfShort() {
+        return queryGeneratedKeysAsList(RowMapper.SHORT_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a String.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<String> queryGeneratedKeyForString() {
+        return queryGeneratedKeys(RowMapper.STRING_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a String.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<String>> queryGeneratedKeysAsListOfString() {
+        return queryGeneratedKeysAsList(RowMapper.STRING_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a URL.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<URL> queryGeneratedKeyForURL() {
+        return queryGeneratedKeys(RowMapper.URL_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of URL.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<URL>> queryGeneratedKeysAsListOfURL() {
+        return queryGeneratedKeysAsList(RowMapper.URL_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Double.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Double> queryGeneratedKeyForDouble() {
+        return queryGeneratedKeys(RowMapper.DOUBLE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Double.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Double>> queryGeneratedKeysAsListOfDouble() {
+        return queryGeneratedKeysAsList(RowMapper.DOUBLE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Float.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Float> queryGeneratedKeyForFloat() {
+        return queryGeneratedKeys(RowMapper.FLOAT_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Float.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Float>> queryGeneratedKeysAsListOfFloat() {
+        return queryGeneratedKeysAsList(RowMapper.FLOAT_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a BigDecimal.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<BigDecimal> queryGeneratedKeyForBigDecimal() {
+        return queryGeneratedKeys(RowMapper.BIG_DECIMAL_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of BigDecimal.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<BigDecimal>> queryGeneratedKeysAsListOfBigDecimal() {
+        return queryGeneratedKeysAsList(RowMapper.BIG_DECIMAL_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Boolean.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Boolean> queryGeneratedKeyForBoolean() {
+        return queryGeneratedKeys(RowMapper.BOOLEAN_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Boolean.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Boolean>> queryGeneratedKeysAsListOfBoolean() {
+        return queryGeneratedKeysAsList(RowMapper.BOOLEAN_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Long.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Long> queryGeneratedKeyForLong() {
+        return queryGeneratedKeys(RowMapper.LONG_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set the List of Long.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Long>> queryGeneratedKeysAsListOfLong() {
+        return queryGeneratedKeysAsList(RowMapper.LONG_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Date.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<java.sql.Date> queryGeneratedKeyForDate() {
+        return queryGeneratedKeys(RowMapper.DATE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set List of Date.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<java.sql.Date>> queryGeneratedKeysAsListOfDate() {
+        return queryGeneratedKeysAsList(RowMapper.DATE_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Time.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<java.sql.Time> queryGeneratedKeyForTime() {
+        return queryGeneratedKeys(RowMapper.TIME_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set List of Time.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<java.sql.Time>> queryGeneratedKeysAsListOfTime() {
+        return queryGeneratedKeysAsList(RowMapper.TIME_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to a Timestamp.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<java.sql.Timestamp> queryGeneratedKeyForTimestamp() {
+        return queryGeneratedKeys(RowMapper.TIMESTAMP_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set List of Timestamp.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<java.sql.Timestamp>> queryGeneratedKeysAsListOfTimestamp() {
+        return queryGeneratedKeysAsList(RowMapper.TIMESTAMP_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set to an Object.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<Object> queryGeneratedKeyForObject() {
+        return queryGeneratedKeys(RowMapper.OBJECT_MAPPER);
+    }
+
+    /**
+     * Creates a new Query object that can be used to execute
+     * a SELECT query and map the result set List of Object.
+     *
+     * @return a new Query instance for execution
+     */
+    public Sql<List<Object>> queryGeneratedKeysAsListOfObject() {
+        return queryGeneratedKeysAsList(RowMapper.OBJECT_MAPPER);
+    }
+
+    /**
      * Creates a new Generated Keys object that can be used to execute
      * a SELECT query and map the result set to a specific object type
      * using the provided RowMapper.

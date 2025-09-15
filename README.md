@@ -10,7 +10,7 @@
 
 ## Usage
 
-Add dependency to your project
+Add dependency to your project (With **JDK 17+**)
 
 ### Maven
 ```xml
@@ -55,7 +55,7 @@ long generatedId = SqlBuilder
     .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?)")
         .param("Interstellar")
         .param("Nolan")
-    .queryGeneratedKeys(resultSet -> resultSet.getLong(1))
+    .queryGeneratedKeyForLong()
     .execute(dataSource);
 ```
 
