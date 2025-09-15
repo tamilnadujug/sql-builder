@@ -18,13 +18,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    - name: Publish to GitHub Maven Repository
-      run: ./mvnw -DskipTests -Dcheckstyle.skip deploy
-      env:
-        GITHUB_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Publish to GitHub Maven Repository
+        run: ./mvnw -DskipTests -Dcheckstyle.skip deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGES_TOKEN }}

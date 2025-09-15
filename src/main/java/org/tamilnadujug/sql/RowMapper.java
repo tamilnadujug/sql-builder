@@ -9,10 +9,9 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
- * RowMapper is an interface that defines how to map each row of a ResultSet
- * to a Java object.
+ * Maps each row of a JDBC ResultSet to a Java object of type T.
  *
- * @param <T> the type of object to map the result set to
+ * @param <T> the type of object to map from the result set
  */
 public interface RowMapper<T> {
 
@@ -93,12 +92,12 @@ public interface RowMapper<T> {
             = rs -> rs.getObject(1);
 
 
-    /**
-     * Maps a single row of the result set to an object.
-     *
-     * @param rs the result set obtained from executing the SQL query
-     * @return the mapped object
-     * @throws SQLException if an SQL error occurs during mapping
-     */
-    T get(ResultSet rs) throws SQLException;
+        /**
+         * Maps a single row of the result set to an object of type T.
+         *
+         * @param rs the ResultSet to map from
+         * @return mapped object of type T
+         * @throws SQLException if an error occurs during mapping
+         */
+        T get(ResultSet rs) throws SQLException;
 }

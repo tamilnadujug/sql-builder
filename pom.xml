@@ -151,7 +151,7 @@
         <version>${jacoco.version}</version>
         <configuration>
           <includes>
-            <include>com/tamilnadujug/*</include>
+            <include>org/tamilnadujug/*</include>
           </includes>
         </configuration>
         <executions>

@@ -4,34 +4,37 @@ DROP TABLE IF EXISTS director;
 DROP TABLE IF EXISTS alltypes;
 
 -- Create movie table
-CREATE TABLE movie (
-    id BIGSERIAL PRIMARY KEY,
-    title VARCHAR(80) NOT NULL,
+CREATE TABLE movie
+(
+    id          BIGSERIAL PRIMARY KEY,
+    title       VARCHAR(80) NOT NULL,
     directed_by VARCHAR(80)
 );
 
-CREATE TABLE director (
-    id BIGSERIAL PRIMARY KEY,
+CREATE TABLE director
+(
+    id   BIGSERIAL PRIMARY KEY,
     name VARCHAR(80) UNIQUE NOT NULL
 );
 
 -- Create AllTypes table
-CREATE TABLE alltypes (
-    nullval VARCHAR,
-    str VARCHAR(255),
-    intval INTEGER,
-    longval BIGINT,
-    doubleval DOUBLE PRECISION,
-    floatval REAL,
-    boolval BOOLEAN,
-    shortval SMALLINT,
-    byteval SMALLINT,
-    dateval DATE,
-    timeval TIME,
-    timestampval TIMESTAMP,
+CREATE TABLE alltypes
+(
+    nullval       VARCHAR,
+    str           VARCHAR(255),
+    intval        INTEGER,
+    longval       BIGINT,
+    doubleval     DOUBLE PRECISION,
+    floatval      REAL,
+    boolval       BOOLEAN,
+    shortval      SMALLINT,
+    byteval       SMALLINT,
+    dateval       DATE,
+    timeval       TIME,
+    timestampval  TIMESTAMP,
     bigdecimalval DECIMAL(15, 2),
-    bytesval BYTEA,
-    urlval VARCHAR(255)
+    bytesval      BYTEA,
+    urlval        VARCHAR(255)
 );
 
 DROP PROCEDURE IF EXISTS insert_alltypes_in;
@@ -53,19 +56,18 @@ CREATE PROCEDURE insert_alltypes_in(
     IN p_urlval VARCHAR,
     IN p_nullval VARCHAR
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
-    INSERT INTO alltypes (
-        str, intval, longval, doubleval, floatval, boolval,
-        shortval, byteval, dateval, timeval, timestampval, bigdecimalval,
-        bytesval, urlval, nullval
-    )
-    VALUES (
-        p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
-        p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval, p_bigdecimalval,
-        p_bytesval, p_urlval, p_nullval
-    );
+    INSERT INTO alltypes (str, intval, longval, doubleval, floatval, boolval,
+                          shortval, byteval, dateval, timeval, timestampval,
+                          bigdecimalval,
+                          bytesval, urlval, nullval)
+    VALUES (p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
+            p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval,
+            p_bigdecimalval,
+            p_bytesval, p_urlval, p_nullval);
 END;
 $$;
 
@@ -88,19 +90,18 @@ CREATE PROCEDURE insert_alltypes_out(
     INOUT p_urlval VARCHAR,
     INOUT p_nullval VARCHAR
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
-    INSERT INTO alltypes (
-        str, intval, longval, doubleval, floatval, boolval,
-        shortval, byteval, dateval, timeval, timestampval, bigdecimalval,
-        bytesval, urlval, nullval
-    )
-    VALUES (
-        p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
-        p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval, p_bigdecimalval,
-        p_bytesval, p_urlval, p_nullval
-    );
+    INSERT INTO alltypes (str, intval, longval, doubleval, floatval, boolval,
+                          shortval, byteval, dateval, timeval, timestampval,
+                          bigdecimalval,
+                          bytesval, urlval, nullval)
+    VALUES (p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
+            p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval,
+            p_bigdecimalval,
+            p_bytesval, p_urlval, p_nullval);
 END;
 $$;
 
@@ -125,19 +126,18 @@ CREATE PROCEDURE insert_alltypes_in_and_out(
     IN p_nullval VARCHAR,
     OUT p_shortval_out SMALLINT
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
-    INSERT INTO alltypes (
-        str, intval, longval, doubleval, floatval, boolval,
-        shortval, byteval, dateval, timeval, timestampval, bigdecimalval,
-        bytesval, urlval, nullval
-    )
-    VALUES (
-        p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
-        p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval, p_bigdecimalval,
-        p_bytesval, p_urlval, p_nullval
-    );
+    INSERT INTO alltypes (str, intval, longval, doubleval, floatval, boolval,
+                          shortval, byteval, dateval, timeval, timestampval,
+                          bigdecimalval,
+                          bytesval, urlval, nullval)
+    VALUES (p_str, p_intval, p_longval, p_doubleval, p_floatval, p_boolval,
+            p_shortval, p_byteval, p_dateval, p_timeval, p_timestampval,
+            p_bigdecimalval,
+            p_bytesval, p_urlval, p_nullval);
 
     -- Return the input string as output
     p_str_out := p_str;
@@ -151,8 +151,9 @@ CREATE PROCEDURE insert_movie_in(
     IN p_title TEXT,
     IN p_director TEXT
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
     INSERT INTO movie (title, directed_by)
     VALUES (p_title, p_director);
@@ -167,8 +168,9 @@ CREATE PROCEDURE insert_movie_out(
     IN p_director TEXT,
     OUT p_id BIGINT
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
     INSERT INTO movie (title, directed_by)
     VALUES (p_title, p_director)
@@ -182,9 +184,10 @@ CREATE FUNCTION insert_movie_fn(
     p_title TEXT,
     p_director TEXT
 )
-RETURNS BIGINT
-LANGUAGE plpgsql
-AS $$
+    RETURNS BIGINT
+    LANGUAGE plpgsql
+AS
+$$
 DECLARE
     new_id BIGINT;
 BEGIN
@@ -202,29 +205,32 @@ CREATE PROCEDURE update_title_inout(
     INOUT p_id BIGINT,
     INOUT p_title TEXT
 )
-LANGUAGE plpgsql
-AS $$
+    LANGUAGE plpgsql
+AS
+$$
 BEGIN
     UPDATE movie
     SET title = p_title
     WHERE id = p_id;
 
     -- Confirm the updated title (in case it's modified by a trigger, etc.)
-    SELECT title INTO p_title
+    SELECT title
+    INTO p_title
     FROM movie
     WHERE id = p_id;
 END;
 $$;
 
 CREATE OR REPLACE FUNCTION get_movie_by_id(p_id BIGINT)
-RETURNS REFCURSOR AS $$
+    RETURNS REFCURSOR AS
+$$
 DECLARE
     ref refcursor;
 BEGIN
     OPEN ref FOR
-    SELECT id, title, directed_by
-    FROM movie
-    WHERE id = p_id;
+        SELECT id, title, directed_by
+        FROM movie
+        WHERE id = p_id;
 
     RETURN ref;
 END;
