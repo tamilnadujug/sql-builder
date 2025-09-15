@@ -2,9 +2,10 @@ package org.tamilnadujug;
 
 /**
  * Data Holder for the table - movie.
- *@param id Short.
- *@param title String.
- *@param directedBy String.
+ *
+ * @param id         Short.
+ * @param title      String.
+ * @param directedBy String.
  */
 public record Movie(
         Short id,
@@ -17,6 +18,7 @@ public record Movie(
 
     /**
      * gets value of column - theId.
+     *
      * @param theId
      * @return theId
      */
@@ -30,6 +32,7 @@ public record Movie(
 
     /**
      * gets value of column - theTitle.
+     *
      * @param theTitle
      * @return theTitle
      */
@@ -43,6 +46,7 @@ public record Movie(
 
     /**
      * gets value of column - theDirectedBy.
+     *
      * @param theDirectedBy
      * @return theDirectedBy
      */

@@ -20,16 +20,16 @@ class BaseTest {
         dataSource.setPassword("sampledb");
     }
 
-    @BeforeEach
-    void beforeEach() throws SQLException {
-        SqlBuilder.prepareSql("TRUNCATE TABLE movie RESTART IDENTITY CASCADE")
-                .execute(dataSource);
-    }
-
     public static Movie mapMovie(ResultSet rs) throws SQLException {
         return new Movie(
                 rs.getShort(1),
                 rs.getString(2),
                 rs.getString(3));
+    }
+
+    @BeforeEach
+    void beforeEach() throws SQLException {
+        SqlBuilder.prepareSql("TRUNCATE TABLE movie RESTART IDENTITY CASCADE")
+                .execute(dataSource);
     }
 }

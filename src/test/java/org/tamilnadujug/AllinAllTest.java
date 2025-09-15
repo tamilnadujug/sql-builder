@@ -2,7 +2,6 @@ package org.tamilnadujug;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -41,11 +40,11 @@ class AllinAllTest extends BaseTest {
     private static final SqlBuilder ALL_RESULS_QUERY = SqlBuilder.prepareSql("SELECT * FROM AllTypes");
 
     private final SqlBuilder.PreparedSqlBuilder sqlBuilder = SqlBuilder.prepareSql("""
-                INSERT INTO AllTypes
-                (str, intVal, longVal, doubleVal, floatVal, boolVal, shortVal, byteVal, 
-                dateVal, timeVal, timestampVal, bigDecimalVal, bytesVal, urlVal, nullVal)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """)
+                    INSERT INTO AllTypes
+                    (str, intVal, longVal, doubleVal, floatVal, boolVal, shortVal, byteVal, 
+                    dateVal, timeVal, timestampVal, bigDecimalVal, bytesVal, urlVal, nullVal)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """)
             .param(STR_VAL)
             .param(INT_VAL)
             .param(LONG_VAL)
@@ -81,11 +80,11 @@ class AllinAllTest extends BaseTest {
             .paramNull();
 
     private final SqlBuilder.CallableSqlBuilder callSqlBuilder = SqlBuilder.prepareCall("""
-                INSERT INTO AllTypes
-                (str, intVal, longVal, doubleVal, floatVal, boolVal, shortVal, byteVal, 
-                dateVal, timeVal, timestampVal, bigDecimalVal, bytesVal, urlVal, nullVal)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """)
+                    INSERT INTO AllTypes
+                    (str, intVal, longVal, doubleVal, floatVal, boolVal, shortVal, byteVal, 
+                    dateVal, timeVal, timestampVal, bigDecimalVal, bytesVal, urlVal, nullVal)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """)
             .param(STR_VAL)
             .param(INT_VAL)
             .param(LONG_VAL)
@@ -161,29 +160,30 @@ class AllinAllTest extends BaseTest {
                 .size());
 
     }
+
     @Test
     void testInvalidBatchFromSqlBuilder() {
         // If we give more parameter to SQL Builder initiated batch
         SQLException exception = assertThrows(SQLException.class, () -> {
-        sqlBuilder
-                .addBatch()
-                .param(STR_VAL)
-                .param(INT_VAL)
-                .param(LONG_VAL)
-                .param(DOUBLE_VAL)
-                .param(FLOAT_VAL)
-                .param(BOOL_VAL)
-                .param(SHORT_VAL)
-                .param(BYTE_VAL)
-                .param(DATE_VAL)
-                .param(TIME_VAL)
-                .param(TIMESTAMP_VAL)
-                .param(BIG_DECIMAL_VAL)
-                .param(BYTES_VAL)
-                .param(URL_STR)
-                .paramNull()
-                .param(STR_VAL) // 1 More
-                .executeBatch(dataSource);
+            sqlBuilder
+                    .addBatch()
+                    .param(STR_VAL)
+                    .param(INT_VAL)
+                    .param(LONG_VAL)
+                    .param(DOUBLE_VAL)
+                    .param(FLOAT_VAL)
+                    .param(BOOL_VAL)
+                    .param(SHORT_VAL)
+                    .param(BYTE_VAL)
+                    .param(DATE_VAL)
+                    .param(TIME_VAL)
+                    .param(TIMESTAMP_VAL)
+                    .param(BIG_DECIMAL_VAL)
+                    .param(BYTES_VAL)
+                    .param(URL_STR)
+                    .paramNull()
+                    .param(STR_VAL) // 1 More
+                    .executeBatch(dataSource);
         });
 
         Assertions.assertTrue(exception.getMessage().startsWith("Parameters "));
@@ -327,18 +327,18 @@ class AllinAllTest extends BaseTest {
     void testNullData() throws Exception {
 
         SqlBuilder.prepareSql("""
-                INSERT INTO AllTypes
-                (timeVal)
-                VALUES (?)
-                """)
+                        INSERT INTO AllTypes
+                        (timeVal)
+                        VALUES (?)
+                        """)
                 .paramNull(Types.TIME, "TIME")
                 .execute(dataSource);
 
         SqlBuilder.prepareSql("""
-                INSERT INTO AllTypes
-                (timeVal)
-                VALUES (?)
-                """)
+                        INSERT INTO AllTypes
+                        (timeVal)
+                        VALUES (?)
+                        """)
                 .param(TIME_VAL, Types.TIME)
                 .execute(dataSource);
 
@@ -376,69 +376,69 @@ class AllinAllTest extends BaseTest {
                         .execute(dataSource).get(0));
 
         assertEquals(INT_VAL,
-                        SqlBuilder.prepareSql("select intVal from AllTypes")
-                                .queryForInt()
-                                .execute(dataSource));
+                SqlBuilder.prepareSql("select intVal from AllTypes")
+                        .queryForInt()
+                        .execute(dataSource));
 
         assertEquals(INT_VAL,
                 SqlBuilder.prepareSql("select intVal from AllTypes")
                         .queryForListOfInt()
                         .execute(dataSource).get(0));
 
-         assertEquals(LONG_VAL,
-                 SqlBuilder.prepareSql("select longVal from AllTypes")
-                         .queryForLong()
-                         .execute(dataSource));
+        assertEquals(LONG_VAL,
+                SqlBuilder.prepareSql("select longVal from AllTypes")
+                        .queryForLong()
+                        .execute(dataSource));
 
         assertEquals(LONG_VAL,
                 SqlBuilder.prepareSql("select longVal from AllTypes")
                         .queryForListOfLong()
                         .execute(dataSource).get(0));
 
-         assertEquals(DOUBLE_VAL,
-                 SqlBuilder.prepareSql("select doubleVal from AllTypes")
-                         .queryForDouble()
-                         .execute(dataSource));
+        assertEquals(DOUBLE_VAL,
+                SqlBuilder.prepareSql("select doubleVal from AllTypes")
+                        .queryForDouble()
+                        .execute(dataSource));
 
         assertEquals(DOUBLE_VAL,
                 SqlBuilder.prepareSql("select doubleVal from AllTypes")
                         .queryForListOfDouble()
                         .execute(dataSource).get(0));
 
-         assertEquals(FLOAT_VAL,
-                 SqlBuilder.prepareSql("select floatVal from AllTypes")
-                         .queryForFloat()
-                         .execute(dataSource));
+        assertEquals(FLOAT_VAL,
+                SqlBuilder.prepareSql("select floatVal from AllTypes")
+                        .queryForFloat()
+                        .execute(dataSource));
 
         assertEquals(FLOAT_VAL,
                 SqlBuilder.prepareSql("select floatVal from AllTypes")
                         .queryForListOfFloat()
                         .execute(dataSource).get(0));
 
-         assertEquals(BOOL_VAL,
-                 SqlBuilder.prepareSql("select boolVal from AllTypes")
-                         .queryForBoolean()
-                         .execute(dataSource));
+        assertEquals(BOOL_VAL,
+                SqlBuilder.prepareSql("select boolVal from AllTypes")
+                        .queryForBoolean()
+                        .execute(dataSource));
 
         assertEquals(BOOL_VAL,
                 SqlBuilder.prepareSql("select boolVal from AllTypes")
                         .queryForListOfBoolean()
                         .execute(dataSource).get(0));
 
-         assertEquals(SHORT_VAL,
-                 SqlBuilder.prepareSql("select shortVal from AllTypes")
-                         .queryForShort()
-                         .execute(dataSource));
+        assertEquals(SHORT_VAL,
+                SqlBuilder.prepareSql("select shortVal from AllTypes")
+                        .queryForShort()
+                        .execute(dataSource));
 
         assertEquals(SHORT_VAL,
                 SqlBuilder.prepareSql("select shortVal from AllTypes")
                         .queryForListOfShort()
                         .execute(dataSource).get(0));
 
-         assertEquals(BYTE_VAL,
-                 SqlBuilder.prepareSql("select byteVal from AllTypes")
-                         .queryForByte()
-                         .execute(dataSource));
+        assertEquals(BYTE_VAL,
+                SqlBuilder.prepareSql("select byteVal from AllTypes")
+                        .queryForByte()
+                        .execute(dataSource));
 
         assertEquals(BYTE_VAL,
                 SqlBuilder.prepareSql("select byteVal from AllTypes")
@@ -455,40 +455,40 @@ class AllinAllTest extends BaseTest {
                         .queryForListOfBytes()
                         .execute(dataSource).get(0));
 
-         assertEquals(DATE_VAL,
-                 SqlBuilder.prepareSql("select dateVal from AllTypes")
-                         .queryForDate()
-                         .execute(dataSource));
+        assertEquals(DATE_VAL,
+                SqlBuilder.prepareSql("select dateVal from AllTypes")
+                        .queryForDate()
+                        .execute(dataSource));
 
         assertEquals(DATE_VAL,
                 SqlBuilder.prepareSql("select dateVal from AllTypes")
                         .queryForListOfDate()
                         .execute(dataSource).get(0));
 
-         assertEquals(TIME_VAL,
-                 SqlBuilder.prepareSql("select timeVal from AllTypes")
-                         .queryForTime()
-                         .execute(dataSource));
+        assertEquals(TIME_VAL,
+                SqlBuilder.prepareSql("select timeVal from AllTypes")
+                        .queryForTime()
+                        .execute(dataSource));
 
         assertEquals(TIME_VAL,
                 SqlBuilder.prepareSql("select timeVal from AllTypes")
                         .queryForListOfTime()
                         .execute(dataSource).get(0));
 
-         assertEquals(TIMESTAMP_VAL,
-                 SqlBuilder.prepareSql("select timestampVal from AllTypes")
-                         .queryForTimestamp()
-                         .execute(dataSource));
+        assertEquals(TIMESTAMP_VAL,
+                SqlBuilder.prepareSql("select timestampVal from AllTypes")
+                        .queryForTimestamp()
+                        .execute(dataSource));
 
         assertEquals(TIMESTAMP_VAL,
                 SqlBuilder.prepareSql("select timestampVal from AllTypes")
                         .queryForListOfTimestamp()
                         .execute(dataSource).get(0));
 
-         assertEquals(BIG_DECIMAL_VAL,
-                 SqlBuilder.prepareSql("select bigDecimalVal from AllTypes")
-                         .queryForBigDecimal()
-                         .execute(dataSource));
+        assertEquals(BIG_DECIMAL_VAL,
+                SqlBuilder.prepareSql("select bigDecimalVal from AllTypes")
+                        .queryForBigDecimal()
+                        .execute(dataSource));
 
         assertEquals(BIG_DECIMAL_VAL,
                 SqlBuilder.prepareSql("select bigDecimalVal from AllTypes")
@@ -572,7 +572,7 @@ class AllinAllTest extends BaseTest {
                 .param(BYTES_VAL)
                 .param(URL_STR)
                 .paramNull()
-            .executeBatch(dataSource);
+                .executeBatch(dataSource);
 
         assertEquals(3L, SqlBuilder.prepareSql("SELECT COUNT(*) FROM AllTypes")
                 .queryForLong()
@@ -602,6 +602,7 @@ class AllinAllTest extends BaseTest {
 
         verifyData();
     }
+
     @Test
     void testStoredProcedure_IN_OUT() throws Exception {
 
@@ -652,9 +653,12 @@ class AllinAllTest extends BaseTest {
     }
 
     // Define Java record for table mapping
-    record AllTypesRecord(String str, int intVal, long longVal, double doubleVal, float floatVal, boolean boolVal,
-                          short shortVal, byte byteVal, Date dateVal, Time timeVal, Timestamp timestampVal,
-                          BigDecimal bigDecimalVal, byte[] bytesVal, URL urlVal, String nullVal) {
+    record AllTypesRecord(String str, int intVal, long longVal,
+                          double doubleVal, float floatVal, boolean boolVal,
+                          short shortVal, byte byteVal, Date dateVal,
+                          Time timeVal, Timestamp timestampVal,
+                          BigDecimal bigDecimalVal, byte[] bytesVal, URL urlVal,
+                          String nullVal) {
     }
 
 
