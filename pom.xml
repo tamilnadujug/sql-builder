@@ -20,6 +20,7 @@
     <archunit.version>1.4.1</archunit.version>
     <sonar.version>5.1.0.4751</sonar.version>
     <jacoco.version>0.8.13</jacoco.version>
+    <maven-javadoc.version>3.11.3</maven-javadoc.version>
 
     <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
     <maven.checkstyle.version>3.6.0</maven.checkstyle.version>
@@ -171,6 +172,20 @@
               <dataFile>target/coverage-reports/jacoco-it.exec</dataFile>
               <outputDirectory>target/coverage-reports/jacoco-it</outputDirectory>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven-javadoc.version}</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

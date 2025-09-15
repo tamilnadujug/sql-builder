@@ -1,11 +1,5 @@
 package org.tamilnadujug;
 
-import org.tamilnadujug.sql.ParamMapper;
-import org.tamilnadujug.sql.RowMapper;
-import org.tamilnadujug.sql.Sql;
-import org.tamilnadujug.sql.StatementMapper;
-
-import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.CallableStatement;
@@ -19,6 +13,13 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.tamilnadujug.sql.ParamMapper;
+import org.tamilnadujug.sql.RowMapper;
+import org.tamilnadujug.sql.Sql;
+import org.tamilnadujug.sql.StatementMapper;
 
 /**
  * SqlBuilder is a utility class that simplifies the process of constructing
@@ -454,10 +455,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
     }
 
     /**
-     * Checks if Record Exists.
-     * @param connection
-     * @return exists
-     * @throws SQLException
+     * Checks whether the query returns at least one row.
+     * @param connection the JDBC connection to use
+     * @return {@code true} if at least one row exists; otherwise {@code false}
+     * @throws SQLException if a database access error occurs
      */
     protected boolean exists(final Connection connection) throws SQLException {
         boolean exists;
@@ -470,9 +471,9 @@ public sealed class SqlBuilder implements Sql<Integer> {
     }
 
     /**
-     * add Batch.
-     * @param sqlQuery
-     * @return new Batch
+     * Creates a new {@link Batch} with the first SQL to batch.
+     * @param sqlQuery the SQL statement to add as the first batch entry
+     * @return a new {@link Batch}
      */
     public Batch addBatch(final String sqlQuery) {
         return new Batch(sqlQuery);
@@ -488,17 +489,17 @@ public sealed class SqlBuilder implements Sql<Integer> {
         private final List<String> sqls;
 
         /**
-         * constructor of Batch and it takes the sql query.
-         * @param sqlQuery
+         * Creates a {@code Batch} and adds the initial SQL.
+         * @param sqlQuery the SQL statement to add as the first batch entry
          */
         public Batch(final String sqlQuery) {
             this.sqls = new ArrayList<>();
             addBatch(sqlQuery);
         }
         /**
-         * add Batch.
-         * @param sqlQuery
-         * @return batch
+         * Adds another SQL statement to this batch.
+         * @param sqlQuery the SQL statement to add
+         * @return this {@link Batch}
          */
         public Batch addBatch(final String sqlQuery) {
             this.sqls.add(sqlQuery);
@@ -506,10 +507,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * executeBatch of the no of querys.
-         * @param dataSource
-         * @return updatedRows
-         * @throws SQLException
+         * Executes the batched SQL statements.
+         * @param dataSource the {@link DataSource} to obtain connections from
+         * @return an array of update counts for each statement
+         * @throws SQLException if a database access error occurs
          */
         public int[] executeBatch(final DataSource dataSource)
                 throws SQLException {
@@ -876,6 +877,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
         };
     }
 
+    /**
+     * Builder for parameterized SQL statements using
+     * {@link PreparedStatement}.
+     */
     public static final class PreparedSqlBuilder extends SqlBuilder {
         /**
          * A list of parameters for the query.
@@ -1089,11 +1094,11 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Prepare Statement with Parameters.
-         * @param ps
-         * @param pMappers
-         * @throws SQLException
-         * @return ps
+         * Binds parameters to the provided prepared statement.
+         * @param ps the prepared statement to bind parameters to
+         * @param pMappers the parameter mappers to apply
+         * @return the same prepared statement for chaining
+         * @throws SQLException if a parameter binding error occurs
          */
         private PreparedStatement prepare(final PreparedStatement ps,
                                           final List<ParamMapper> pMappers)
@@ -1105,11 +1110,11 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Get the Statement for Query.
-         * @param connection
-         * @param theSql
-         * @return statement to be executed
-         * @throws SQLException
+         * Creates a prepared statement for the given SQL and binds parameters.
+         * @param connection the JDBC connection
+         * @param theSql the SQL string to prepare
+         * @return a prepared and parameterized statement ready to execute
+         * @throws SQLException if preparing or binding fails
          */
         private PreparedStatement getStatement(final Connection connection,
                                                  final String theSql)
@@ -1134,10 +1139,11 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Checks if Record Exists.
-         * @param connection
-         * @return exists
-         * @throws SQLException
+         * Checks whether the query returns at least one row.
+         * @param connection the JDBC connection to use
+         * @return {@code true} if at least one row exists; otherwise
+         * {@code false}
+         * @throws SQLException if a database access error occurs
          */
         @Override
         protected boolean exists(final Connection connection)
@@ -1152,11 +1158,12 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Get Result for a Query.
-         * @param query
-         * @return result
-         * @param <T>
-         * @throws SQLException
+         * Returns a lazily executed query that maps the first row using the
+         * provided mapper.
+         *
+         * @param <T> the mapped result type
+         * @param query the row mapper to convert a row into {@code T}
+         * @return a {@link Sql} that, when executed, returns the first row
          */
         @Override
         public <T> Sql<T> queryForOne(final RowMapper<T> query) {
@@ -1174,8 +1181,11 @@ public sealed class SqlBuilder implements Sql<Integer> {
             };
         }
         /**
-         * Get Result as a List for a Query.
-         * {@inheritDoc}
+         * Returns a lazily executed query mapping all rows into a list using
+         * the provided mapper.
+         * @param <T> the mapped result type
+         * @param query the row mapper to convert rows into {@code T}
+         * @return a {@link Sql} that, when executed, returns all rows
          */
         @Override
         public <T> Sql<List<T>> queryForList(final RowMapper<T> query) {
@@ -1234,8 +1244,8 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Builds JDBC Batch Builder.
-         * @return batch
+         * Creates a builder for batching repeated executions of this SQL.
+         * @return a new {@link PreparedBatch}
          */
         public PreparedBatch addBatch() {
             return new PreparedBatch();
@@ -1461,6 +1471,9 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
     }
 
+    /**
+     * Builder for calling stored procedures using {@link CallableStatement}.
+     */
     public static final class CallableSqlBuilder implements Sql<Boolean> {
         /**
          * The SQL query to be executed.
@@ -1473,8 +1486,8 @@ public sealed class SqlBuilder implements Sql<Integer> {
         private final CallableSqlBuilderWrapper callableSqlBuilderWrapper;
 
         /**
-         * Creates Callable Sql Builder.
-         * @param theSql
+         * Creates a callable SQL builder.
+         * @param theSql the SQL string (e.g., a call statement)
          */
         public CallableSqlBuilder(final String theSql) {
             this.preparedSqlBuilder = new PreparedSqlBuilder(theSql);
@@ -1482,8 +1495,7 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * Wrapper for CallableSqlBuilder to hide Batch Operations.
-         * for INOUT,OUT parameters.
+         * Wrapper to expose OUT/INOUT operations and still allow fluent API.
          */
         public final class CallableSqlBuilderWrapper implements Sql<Boolean> {
             /**
@@ -1507,9 +1519,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * {@inheritDoc}
-             *
-             * @param connection
+             * Executes the callable statement.
+             * @param connection the JDBC connection to use
+             * @return {@code true} if a result set is returned; otherwise
+             * {@code false}
              */
             public Boolean execute(final Connection connection)
                     throws SQLException {
@@ -1517,12 +1530,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * Adds a parameter to the SQL query. The method allows chaining
-             * and is used to bind values to placeholders in the SQL query.
-             *
-             * @param type
-             * @param value the value of the parameter to be added
-             * @return the current SqlBuilder instance, for method chaining
+             * Registers an INOUT parameter with an initial String value.
+             * @param type the SQL type from {@link java.sql.Types}
+             * @param value the initial value
+             * @return this wrapper for chaining
              */
             public CallableSqlBuilderWrapper outParam(final int type,
                                                       final String value) {
@@ -1530,9 +1541,8 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * Adds a parameter with a null.
-             *
-             * @return the current SqlBuilder instance, for method chaining
+             * Adds a NULL parameter.
+             * @return this wrapper for chaining
              */
             public CallableSqlBuilderWrapper paramNull() {
                 callableSqlBuilder.paramNull();
@@ -1540,12 +1550,10 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * Adds a parameter to the SQL query. The method allows chaining
-             * and is used to bind values to placeholders in the SQL query.
-             *
-             * @param type
-             * @param value the value of the parameter to be added
-             * @return the current SqlBuilder instance, for method chaining
+             * Registers an INOUT parameter with an initial Float value.
+             * @param type the SQL type from {@link java.sql.Types}
+             * @param value the initial value
+             * @return this wrapper for chaining
              */
             public CallableSqlBuilderWrapper outParam(final int type,
                                                       final Float value) {
@@ -1553,11 +1561,9 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * Adds a parameter to the SQL query. The method allows chaining
-             * and is used to bind values to placeholders in the SQL query.
-             *
-             * @param value the value of the parameter to be added
-             * @return the current SqlBuilder instance, for method chaining
+             * Adds a Float IN parameter.
+             * @param value the value to bind
+             * @return this wrapper for chaining
              */
             public CallableSqlBuilderWrapper param(final Float value) {
                 callableSqlBuilder.param(value);
@@ -1565,11 +1571,9 @@ public sealed class SqlBuilder implements Sql<Integer> {
             }
 
             /**
-             * Adds a parameter to the SQL query. The method allows chaining
-             * and is used to bind values to placeholders in the SQL query.
-             *
-             * @param value the value of the parameter to be added
-             * @return the current SqlBuilder instance, for method chaining
+             * Adds a Date IN parameter.
+             * @param value the value to bind
+             * @return this wrapper for chaining
              */
             public CallableSqlBuilderWrapper param(final Date value) {
                 callableSqlBuilder.param(value);
@@ -2321,7 +2325,8 @@ public sealed class SqlBuilder implements Sql<Integer> {
         }
 
         /**
-         * JDBC Batch Builder.
+         * Builder to accumulate parameters for repeated batch execution of a
+         * callable SQL statement.
          */
         public final class CallableBatch {
 

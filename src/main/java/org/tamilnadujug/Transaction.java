@@ -1,11 +1,11 @@
 package org.tamilnadujug;
 
-import org.tamilnadujug.sql.Sql;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.util.function.Function;
+
+import org.tamilnadujug.sql.Sql;
 
 /**
  * Represents a database transaction as a composable unit of work.
@@ -80,12 +80,12 @@ public class Transaction<T> implements Sql<T> {
     /**
      * Executes the transaction on the given database connection.
      *
-     * <p>Manages transaction boundaries automatically:
+     * <p>Manages transaction boundaries automatically:</p>
      * <ul>
      *   <li>Disables auto-commit before execution</li>
      *   <li>Commits the transaction upon success</li>
      *   <li>Restores auto-commit afterward</li>
-     * </ul></p>
+     * </ul>
      *
      * @param connection the database connection
      * @return the result of the SQL execution

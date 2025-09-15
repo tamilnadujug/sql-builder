@@ -12,9 +12,11 @@ import java.sql.SQLException;
 @FunctionalInterface
 public interface StatementMapper<T> {
     /**
-     * Gets Value from Statement.
-     * @param statement
-     * @return result
+     * Extracts a value from the provided {@link CallableStatement} after
+     * execution, typically by reading OUT parameters.
+     * @param statement the callable statement to read from
+     * @return the mapped result value
+     * @throws SQLException if reading from the statement fails
      */
     T get(CallableStatement statement) throws SQLException;
 }
