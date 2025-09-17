@@ -229,19 +229,20 @@
           </execution>
         </executions>
       </plugin>
-      <!--plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>${maven-javadoc.version}</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
+            <phase>package</phase>
             <goals>
               <goal>jar</goal>
             </goals>
           </execution>
         </executions>
-      </plugin-->
+      </plugin>
       <!-- Sign artifacts for uploading to maven central -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -250,7 +251,7 @@
         <executions>
           <execution>
             <id>sign-artifacts</id>
-            <phase>verify</phase>
+            <phase>package</phase>
             <goals>
               <goal>sign</goal>
             </goals>
