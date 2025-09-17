@@ -11,13 +11,13 @@ import java.sql.SQLException;
  */
 class BaseTest {
 
-    protected final PGSimpleDataSource dataSource;
+    protected static PGSimpleDataSource dataSource;
 
-    BaseTest() {
+    static {
         dataSource = new PGSimpleDataSource();
         dataSource.setURL("jdbc:postgresql://localhost:5432/sampledb");
-        dataSource.setUser("sampledb");
-        dataSource.setPassword("sampledb");
+        dataSource.setUser("postgres");
+        dataSource.setPassword("password");
     }
 
     public static Movie mapMovie(ResultSet rs) throws SQLException {
