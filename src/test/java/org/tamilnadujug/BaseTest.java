@@ -11,9 +11,9 @@ import java.sql.SQLException;
  */
 class BaseTest {
 
-    protected final PGSimpleDataSource dataSource;
+    protected static PGSimpleDataSource dataSource;
 
-    BaseTest() {
+    static {
         dataSource = new PGSimpleDataSource();
         dataSource.setURL("jdbc:postgresql://localhost:5432/sampledb");
         dataSource.setUser("sampledb");
