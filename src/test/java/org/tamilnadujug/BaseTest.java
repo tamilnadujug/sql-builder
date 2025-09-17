@@ -16,8 +16,8 @@ class BaseTest {
     static {
         dataSource = new PGSimpleDataSource();
         dataSource.setURL("jdbc:postgresql://localhost:5432/sampledb");
-        dataSource.setUser("postgres");
-        dataSource.setPassword("password");
+        dataSource.setUser("sampledb");
+        dataSource.setPassword("sampledb");
     }
 
     public static Movie mapMovie(ResultSet rs) throws SQLException {
