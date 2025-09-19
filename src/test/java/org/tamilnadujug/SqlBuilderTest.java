@@ -42,7 +42,7 @@ class SqlBuilderTest extends BaseTest {
                 .queryForOne(BaseTest::mapMovie)
                 .execute(dataSource);
 
-        Assertions.assertEquals(4, (int) movie.id());
+        Assertions.assertEquals(5, (int) movie.id());
     }
 
     @Test
