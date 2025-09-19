@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 class SqlBuilderTest extends BaseTest {
@@ -36,6 +37,12 @@ class SqlBuilderTest extends BaseTest {
 
         Assertions.assertEquals(3, generetedIds.get(0));
         Assertions.assertEquals(4, generetedIds.get(1));
+
+        Movie movie = SqlBuilder.sql("INSERT INTO movie(title, directed_by) VALUES ('Interstellar', 'Nolan') RETURNING id, title, directed_by")
+                .queryForOne(BaseTest::mapMovie)
+                .execute(dataSource);
+
+        Assertions.assertEquals(4, (int) movie.id());
     }
 
     @Test

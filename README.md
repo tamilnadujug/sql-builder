@@ -58,7 +58,14 @@ long generatedId = SqlBuilder
     .queryGeneratedKeyForLong()
     .execute(dataSource);
 ```
+with RETURNING clause,
 
+```java
+Movie movie = SqlBuilder
+    .sql("INSERT INTO movie(title, directed_by) VALUES ('Interstellar', 'Nolan') RETURNING id, title, directed_by")
+    .queryForOne(BaseTest::mapMovie)
+    .execute(dataSource);
+```
 #### SELECT
 Fetch a single record,
 
