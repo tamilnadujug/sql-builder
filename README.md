@@ -17,7 +17,7 @@ Add dependency to your project (With **JDK 17+**)
 <dependency>
     <groupId>org.tamilnadujug</groupId>
     <artifactId>sql-builder</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 </dependency>
 ```
 ### Gradle
