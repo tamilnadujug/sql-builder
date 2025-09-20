@@ -15,6 +15,11 @@ Add the following dependencies to your Quarkus project (**JDK 17+ required**):
 </dependency>
 
 <dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-agroal</artifactId>
+</dependency>
+
+<dependency>
     <groupId>org.tamilnadujug</groupId>
     <artifactId>sql-builder</artifactId>
     <version>${sql-builder.version}</version>
