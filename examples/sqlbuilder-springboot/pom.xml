@@ -16,7 +16,9 @@
 
 	<properties>
 		<java.version>17</java.version>
-	</properties>
+        <sql-builder.version>1.0</sql-builder.version>
+        <postgresql.version>42.7.7</postgresql.version>
+    </properties>
 	<dependencies>
 
 		<dependency>
@@ -27,14 +29,14 @@
         <dependency>
             <groupId>org.tamilnadujug</groupId>
             <artifactId>sql-builder</artifactId>
-            <version>1.0</version>
+            <version>${sql-builder.version}</version>
         </dependency>
 
         <!-- JDBC Driver -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.7</version>
+            <version>${postgresql.version}</version>
         </dependency>
 
 	</dependencies>

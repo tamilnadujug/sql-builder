@@ -1,12 +1,13 @@
 # Spring Boot SQL Builder Integration
 
-Sample project that demonstrates how to use SQL Builder with Spring Boot Application
+This sample project demonstrates how to integrate **SQL Builder** with a Spring Boot application.
 
 ## Setup
 
-Add below dependencies, to your spring boot project (With **JDK 17+**)
+Add the following dependencies to your Spring Boot project (**JDK 17+ required**):
 
 ### Maven
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -16,18 +17,20 @@ Add below dependencies, to your spring boot project (With **JDK 17+**)
 <dependency>
     <groupId>org.tamilnadujug</groupId>
     <artifactId>sql-builder</artifactId>
-    <version>1.0</version>
+    <version>${sql-builder.version}</version>
 </dependency>
 
-        <!-- JDBC Driver -->
+<!-- JDBC Driver -->
 <dependency>
     <groupId>org.postgresql</groupId>
     <artifactId>postgresql</artifactId>
-    <version>42.7.7</version>
+    <version>${postgresql.version}</version>
 </dependency>
 ```
 
-Configure Spring Boot Application to use your database at `src/main/resources/application.yml`
+### Configuration
+
+Set up your database connection in `src/main/resources/application.yml`:
 
 ```yml
 spring:
@@ -37,7 +40,7 @@ spring:
     password: sampledb
 ```
 
-Autowire DataSource to your Spring Bean
+### Example Service
 
 ```java
 @Service
@@ -45,11 +48,11 @@ public class MovieService {
 
     private final DataSource dataSource;
 
-    public MovieService(final DataSource dataSource) {
+    public MovieService(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public Movie create(final Movie movie) throws SQLException {
+    public Movie create(Movie movie) throws SQLException {
         return SqlBuilder
                 .sql("INSERT INTO movie(title, directed_by) VALUES ('Interstellar', 'Nolan') RETURNING id, title, directed_by")
                 .queryForOne(rs -> new Movie(
@@ -61,7 +64,7 @@ public class MovieService {
 }
 ```
 
-You can now talk to the database 
+### Example Application
 
 ```java
 @SpringBootApplication
@@ -69,19 +72,17 @@ public class Application implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
-
     @Autowired
-    MovieService movieService;
+    private MovieService movieService;
 
-    @Override
-    public void run(String... strings) throws Exception {
-        Movie movie = movieService.create(new Movie(null, "Titanic", "James Cameron"));
-
-        log.info("Movie Created {}", movie);
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        Movie movie = movieService.create(new Movie(null, "Titanic", "James Cameron"));
+        log.info("Movie Created: {}", movie);
+    }
 }
 ```
