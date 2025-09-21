@@ -1,11 +1,11 @@
 # SQL Builder
 
-> **SQL Builder** is a lightweight alternative for **[Spring JDBC Client](https://www.baeldung.com/spring-6-jdbcclient-api)** and **[MyBatis](https://mybatis.org/mybatis-3/)** designed to provide the same essential functionality as these tools but with a focus on simplicity and readability. With SQL Builder, you can streamline your database operations without being tied down by unnecessary complexity.
+> **SQL Builder** is a framework-independent, lightweight alternative to **[Spring JDBC Client](https://www.baeldung.com/spring-6-jdbcclient-api)** and **[MyBatis](https://mybatis.org/mybatis-3/)**. It is designed to provide the same essential functionality as these tools, but with a strong focus on simplicity and readability. With SQL Builder, developers can streamline database operations without being tied down by unnecessary complexity.
 
 ## Why Use SQL Builder?
 
 - **Simpler Fluent & Smart API:** Focused on readability, typesafe and minimal configuration.
-- **Framework Independent:** It can be used in any Java framework ( [Quarkus](https://github.com/quarkusio/quarkus/discussions/38740), Spring Boot etc ) see [examples](examples/README.md))
+- **Framework Independent:** It can be used in any Java framework like Spring Boot , Quarkus  etc ([examples](examples/README.md))
 - **Lightweight:** with no third party dependencies
 
 ## Usage
