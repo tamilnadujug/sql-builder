@@ -34,14 +34,14 @@ class StoredProcedureTest extends BaseTest {
     @Test
     void testAddMovie_INAsBatch() throws Exception {
         SqlBuilder.prepareCall("CALL insert_movie_in(?, ?)")
-                    .param("Inception", Types.VARCHAR)
-                    .paramNull(Types.VARCHAR, "VARCHAR")
+                .param("Inception", Types.VARCHAR)
+                .paramNull(Types.VARCHAR, "VARCHAR")
                 .addBatch()
-                    .param("Dunkrik")
-                    .param("Nolan")
+                .param("Dunkrik")
+                .param("Nolan")
                 .addBatch()
-                    .param("Avatar")
-                    .param("Cameroon")
+                .param("Avatar")
+                .param("Cameroon")
                 .executeBatch(dataSource);
         Assertions.assertNull(
                 SqlBuilder.sql("SELECT directed_by from movie WHERE title = 'Inception'")
@@ -64,9 +64,9 @@ class StoredProcedureTest extends BaseTest {
                 .outParam(Types.BIGINT)
                 .queryOutParams(statement -> statement.getLong(3))
                 .execute(dataSource);
-            Assertions.assertEquals("Christopher Nolan",
-                    SqlBuilder.sql("SELECT directed_by from movie WHERE id = " + id)
-                            .queryForString().execute(dataSource));
+        Assertions.assertEquals("Christopher Nolan",
+                SqlBuilder.sql("SELECT directed_by from movie WHERE id = " + id)
+                        .queryForString().execute(dataSource));
     }
 
     @Test

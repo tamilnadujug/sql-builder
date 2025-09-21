@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 class SqlBuilderTest extends BaseTest {
@@ -36,7 +37,14 @@ class SqlBuilderTest extends BaseTest {
 
         Assertions.assertEquals(3, generetedIds.get(0));
         Assertions.assertEquals(4, generetedIds.get(1));
+
+        Movie movie = SqlBuilder.sql("INSERT INTO movie(title, directed_by) VALUES ('Interstellar', 'Nolan') RETURNING id, title, directed_by")
+                .queryForOne(BaseTest::mapMovie)
+                .execute(dataSource);
+
+        Assertions.assertEquals(5, (int) movie.id());
     }
+
     @Test
     void testPrepareSql() throws SQLException {
         int updateRows =
@@ -45,7 +53,7 @@ class SqlBuilderTest extends BaseTest {
                         .param("Nolan")
                         .param("Inception")
                         .param("Nolan")
-                    .execute(dataSource);
+                        .execute(dataSource);
 
         Assertions.assertEquals(2, updateRows);
 
@@ -89,9 +97,9 @@ class SqlBuilderTest extends BaseTest {
                         .execute(dataSource));
 
         Movie movie = SqlBuilder.prepareSql(sql)
-                                .param(1)
-                            .queryForOne(BaseTest::mapMovie)
-                            .execute(dataSource);
+                .param(1)
+                .queryForOne(BaseTest::mapMovie)
+                .execute(dataSource);
 
         Assertions.assertEquals("Dunkirk", movie.title());
 
@@ -115,11 +123,11 @@ class SqlBuilderTest extends BaseTest {
     void testPreparedBatch() throws SQLException {
         int[] updatedRows = SqlBuilder
                 .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?)")
-                    .param("Interstellar")
-                    .param("Nolan")
+                .param("Interstellar")
+                .param("Nolan")
                 .addBatch()
-                    .param("Dunkrik")
-                    .param("Nolan")
+                .param("Dunkrik")
+                .param("Nolan")
                 .executeBatch(dataSource);
 
         Assertions.assertEquals(2L,
@@ -127,19 +135,18 @@ class SqlBuilderTest extends BaseTest {
 
         updatedRows = SqlBuilder
                 .prepareSql("INSERT INTO movie(title, directed_by) VALUES (?, ?)")
-                    .param("Jurasic Park")
-                    .param("Cameroon")
+                .param("Jurasic Park")
+                .param("Cameroon")
                 .addBatch()
-                    .param("Terminator 2")
-                    .param("Cameroon")
+                .param("Terminator 2")
+                .param("Cameroon")
                 .addBatch()
-                    .param("Titanic")
-                    .param("Cameroon")
+                .param("Titanic")
+                .param("Cameroon")
                 .addBatch()
-                    .param("Avatar")
-                    .param("Cameroon")
+                .param("Avatar")
+                .param("Cameroon")
                 .executeBatch(dataSource);
-
 
 
         Assertions.assertEquals(4,
@@ -164,7 +171,7 @@ class SqlBuilderTest extends BaseTest {
                 SqlBuilder.sql("SELECT id from movie WHERE directed_by = 'Cameroon'")
                         .queryForListOfInt()
                         .execute(dataSource)
-                        .containsAll(List.of(6,5,4,3)));
+                        .containsAll(List.of(6, 5, 4, 3)));
 
 
         Assertions.assertEquals("Jurasic Park",
